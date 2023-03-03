@@ -390,7 +390,7 @@ begin
           TFieldType.ftString, TFieldType.ftWideString, TFieldType.ftMemo, TFieldType.ftWideMemo, TFieldType.ftGuid, TFieldType.ftFixedChar, TFieldType.ftFixedWideChar:
           begin
             if LJSONValue is TJSONObject then
-              LField.Text := LJSONValue.ToJSON
+              LField.Text := {$IF DEFINED(FPC)} LJSONValue.AsJSON {$ELSE} LJSONValue.ToJSON {$ENDIF}
             else
               LField.AsString := LJSONValue.Value;
           end;
