@@ -179,6 +179,10 @@ begin
   if not mtLog.Active then
     mtLog.Open;
 
+  //Modify formatsettings for correctly adding data
+  FormatSettings.DateSeparator:='/';
+  FormatSettings.ShortDateFormat:='DD/MM/YYYY';
+
   mtUsers.AppendRecord([1, 'Mateus Vicente', '13/04/1998', 14999.99]);
   mtUsers.AppendRecord([2, 'Vinicius Sanchez', '03/08/1995', Null]);
   mtUsers.AppendRecord([3, 'Julio Senha', '04/06/1985', 27000.00]);
