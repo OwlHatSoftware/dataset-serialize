@@ -11,6 +11,9 @@ type
 
   TDataSetSerializeConfigExport = class
   private
+    FTryConvertStringToJson: Boolean;
+    FExportBCDAsFloat: Boolean;
+    FExportLargeIntAsString: Boolean;
     FExportNullValues: Boolean;
     FExportNullAsEmptyString: Boolean;
     FExportOnlyFieldsVisible: Boolean;
@@ -37,20 +40,25 @@ type
     property ExportNullAsEmptyString: Boolean read FExportNullAsEmptyString write FExportNullAsEmptyString;
     property ExportEmptyDataSet: Boolean read FExportEmptyDataSet write FExportEmptyDataSet;
     property ExportChildDataSetAsJsonObject: Boolean read FExportChildDataSetAsJsonObject write FExportChildDataSetAsJsonObject;
+    property TryConvertStringToJson: Boolean read FTryConvertStringToJson write FTryConvertStringToJson;
     {$IF DEFINED(FPC)}
     property DecimalSeparator: Char read FDecimalSeparator write FDecimalSeparator;
     property ExportFloatScientificNotation: Boolean read FExportFloatScientificNotation write FExportFloatScientificNotation;
     {$ENDIF}
+    property ExportLargeIntAsString: Boolean read FExportLargeIntAsString write FExportLargeIntAsString;
+    property ExportBCDAsFloat: Boolean read FExportBCDAsFloat write FExportBCDAsFloat;
   end;
 
   TDataSetSerializeConfigImport = class
   private
+    FDecodeBase64BlobField: Boolean;
     FImportOnlyFieldsVisible: Boolean;
     FDecimalSeparator: Char;
   public
     constructor Create;
     property ImportOnlyFieldsVisible: Boolean read FImportOnlyFieldsVisible write FImportOnlyFieldsVisible;
     property DecimalSeparator: Char read FDecimalSeparator write FDecimalSeparator;
+    property DecodeBase64BlobField: Boolean read FDecodeBase64BlobField write FDecodeBase64BlobField;
   end;
 
   TDataSetSerializeConfig = class
@@ -60,6 +68,7 @@ type
     FDateInputIsUTC: Boolean;
     FDateTimeIsISO8601: Boolean;
     FDateIsFloatingPoint: Boolean;
+    FRemoveBlankSpaceFieldName: Boolean;
     FExport: TDataSetSerializeConfigExport;
     FImport: TDataSetSerializeConfigImport;
     class var FInstance: TDataSetSerializeConfig;
@@ -70,6 +79,7 @@ type
     destructor Destroy; override;
     property DataSetPrefix: TArray<string> read FDataSetPrefix write FDataSetPrefix;
     property CaseNameDefinition: TCaseNameDefinition read FCaseNameDefinition write FCaseNameDefinition;
+    property RemoveBlankSpaceFieldName: Boolean read FRemoveBlankSpaceFieldName write FRemoveBlankSpaceFieldName;
     property DateTimeIsISO8601: Boolean read FDateTimeIsISO8601 write FDateTimeIsISO8601;
     property DateInputIsUTC: Boolean read FDateInputIsUTC write FDateInputIsUTC;
     property DateIsFloatingPoint: Boolean read FDateIsFloatingPoint write FDateIsFloatingPoint;
@@ -113,6 +123,7 @@ begin
     FInstance.CaseNameDefinition := cndLowerCamelCase;
     FInstance.DataSetPrefix := ['mt', 'qry'];
     FInstance.DateInputIsUTC := True;
+    FInstance.RemoveBlankSpaceFieldName := True;
     FInstance.DateIsFloatingPoint := False;
     FInstance.DateTimeIsISO8601 := True;
   end;
@@ -132,6 +143,7 @@ end;
 
 constructor TDataSetSerializeConfigExport.Create;
 begin
+  FTryConvertStringToJson := False;
   FExportNullValues := True;
   FExportNullAsEmptyString:= False;
   FExportOnlyFieldsVisible := True;
@@ -146,6 +158,8 @@ begin
   FDecimalSeparator := '.';
   FExportFloatScientificNotation := False;
   {$ENDIF}
+  FExportLargeIntAsString := False;
+  FExportBCDAsFloat := False;                
 end;
 
 { TDataSetSerializeConfigImport }
@@ -154,6 +168,7 @@ constructor TDataSetSerializeConfigImport.Create;
 begin
   FDecimalSeparator := '.';
   FImportOnlyFieldsVisible := True;
+  FDecodeBase64BlobField := True;
 end;
 
 initialization

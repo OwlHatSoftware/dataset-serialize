@@ -159,6 +159,10 @@ TDataSetSerializeConfig.GetInstance.DateInputIsUTC := True;
 ```pascal
   TDataSetSerializeConfig.GetInstance.Export.ExportNullValues := True;
 ```
+* Attempts to convert a string to JSON when the string starts with { or [
+```pascal
+  TDataSetSerializeConfig.GetInstance.Export.TryConvertStringToJson := True;
+```
 * Export only fields visible
 ```pascal
   TDataSetSerializeConfig.GetInstance.Export.ExportOnlyFieldsVisible := True;
@@ -167,9 +171,25 @@ TDataSetSerializeConfig.GetInstance.DateInputIsUTC := True;
 ```pascal
   TDataSetSerializeConfig.GetInstance.Export.ExportChildDataSetAsJsonObject := False;
 ```
+* Export Largeint as string
+```pascal
+  TDataSetSerializeConfig.GetInstance.Export.ExportLargeIntAsString := False;
+```
+* Export BCD as float
+```pascal
+  TDataSetSerializeConfig.GetInstance.Export.ExportBCDAsFloat := False;
+```
 * Import only fields visible
 ```pascal
   TDataSetSerializeConfig.GetInstance.Import.ImportOnlyFieldsVisible := True;
+```
+* Base64 decode Blob fields on import
+```pascal
+  TDataSetSerializeConfig.GetInstance.Import.DecodeBase64BlobField := True;
+```
+* Remove blank space on FieldName
+```pascal
+  TDataSetSerializeConfig.GetInstance.RemoveBlankSpaceFieldName := True; // default
 ```
 * Case name definition
 ```pascal
