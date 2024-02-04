@@ -100,7 +100,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="src;..\..\..\src;$(ProjOutDir)"/>
-      <OtherUnitFiles Value="src;..\..\..\src"/>
+      <OtherUnitFiles Value="src;..\..\..\src;..\..\..\..\..\..\AppData\Local\tmssoftware\registered\TMS FNC Cloud Pack"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

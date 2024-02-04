@@ -1,7 +1,7 @@
 object FrmSamples: TFrmSamples
-  Left = 422
+  Left = 461
   Height = 561
-  Top = 151
+  Top = 187
   Width = 984
   Caption = 'DataSet-Serialize - Samples'
   ClientHeight = 561
@@ -12,7 +12,7 @@ object FrmSamples: TFrmSamples
   Font.Name = 'Segoe UI'
   OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '2.0.12.0'
+  LCLVersion = '2.2.4.0'
   object pclSamples: TPageControl
     Left = 0
     Height = 561
@@ -388,20 +388,22 @@ object FrmSamples: TFrmSamples
   object ZConnection1: TZConnection
     ControlsCodePage = cCP_UTF8
     AutoEncodeStrings = True
+    ClientCodepage = 'UTF8'
     Properties.Strings = (
       'AutoEncodeStrings=True'
       'controls_cp=CP_UTF8'
+      'codepage=UTF8'
     )
     TransactIsolationLevel = tiReadCommitted
-    Connected = True
     HostName = 'localhost:3052'
     Port = 0
-    Database = 'E:\GitHub\dataset-serialize\samples\lazarus\master-detail\EXAMPLE.FDB'
+    Database = 'EXAMPLE.FDB'
     User = 'SYSDBA'
     Password = 'masterkey'
-    Protocol = 'firebird-3.0'
-    Left = 502
-    Top = 227
+    Protocol = 'firebirdd-3.0'
+    LibraryLocation = 'C:\Users\JaccoUijlenhoet\Documents\GitHub\dataset-serialize\samples\lazarus\master-detail\fbclient.dll'
+    Left = 592
+    Top = 224
   end
   object qrCountries: TZQuery
     Connection = ZConnection1
